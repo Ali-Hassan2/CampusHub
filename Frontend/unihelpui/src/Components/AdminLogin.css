@@ -1,0 +1,42 @@
+.heading{
+    
+    text-align: center;
+    padding: 30px;
+    border-bottom: 1px solid black;
+}
+.heading h2{
+    font-size: 27px;
+}
+.content{
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+#username{
+    background-color: gray;
+    padding: 5px;
+    border-radius: 10px;
+    padding-left: 7px;
+    font-size: 14px;
+    border-bottom: 1px solid black;
+    outline: none;
+    background-color: transparent;
+}
+#password{
+    background-color: gray;
+    padding: 5px;
+    border-radius: 10px;
+    padding-left: 7px;
+    font-size: 14px;
+    border-bottom: 1px solid black;
+    outline: none;
+    background-color: transparent;
+}
+#fp{
+    text-decoration: underline;
+    font-size: 10px;
+    padding-left: 2px;
+    color: blue;
+}
