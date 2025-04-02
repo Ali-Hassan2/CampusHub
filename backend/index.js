@@ -6,6 +6,7 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const adminlogin = require('./Routes/adminlogin');
+const timetableroute = require('./Routes/timetableroute')
 
 const app = express();
 dotenv.config();
@@ -22,11 +23,11 @@ const port = process.env.PORT || 8080;
 // accept kr lo request hr jagah se
 app.use(cors());
 
-
 app.use(express.json());
 
 app.use('/api/pastpapers', pastpaperRoute);
 app.use('/admin/login', adminlogin);
+app.use('/api/timetable',timetableroute)
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

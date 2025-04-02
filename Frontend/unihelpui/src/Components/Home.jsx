@@ -24,6 +24,8 @@ const Home = () => {
       <Navbar/>
       <div className="flex justify-center items-center flex-col border border-amber-600 h-[300px] mb-[200px]">
       <h1 className="bg-blue-800 py-[200px] w-[300px] text-center text-md relative -top-4 text-white rounded-md">Select Department</h1>
+
+      
       <select
   onChange={dephandling}
   value={dep}
