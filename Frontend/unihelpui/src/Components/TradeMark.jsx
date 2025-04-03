@@ -6,8 +6,7 @@ const TradeMark = () => {
       <h2 className="text-2xl font-bold uppercase tracking-wide">UniHelp © 2025</h2>
       <p className="text-sm mt-2 text-gray-300">Empowering Students with Knowledge</p>
       <div className="mt-4 text-gray-400 text-sm">
-        <p>Co-founders:</p>
-        <p className="font-semibold text-blue-400">Ali Hassan & Noman Azam</p>
+
       </div>
     </div>
   );
