@@ -51,7 +51,8 @@ router.post('/upload', upload.single('file'), async(req,res)=>{
             return res.status(400).send({ success: false, message: "No file uploaded" });
         }
 
-       
+        console.log(`Saved file path: ${req.file.filename}`);
+        console.log(`Generated file URL: ${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`);
         const {department,title} = req.body
         console.log(req.body.title)
         console.log(req.body.department)
@@ -60,6 +61,7 @@ router.post('/upload', upload.single('file'), async(req,res)=>{
             department,
             title,
             file_url: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
+
         });
 
         await newtimetable.save();

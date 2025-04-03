@@ -8,7 +8,7 @@ const AdminTimetable = () => {
   const [form, setform] = useState(false);
   const [title, settitle] = useState("");
   const [file, setfile] = useState("");
-  const [timetable, setTimetable] = useState("");
+  const [timetable, setTimetable] = useState([]);
 
   const adding = () => {
     setform(true);
@@ -41,33 +41,37 @@ const AdminTimetable = () => {
       console.log("Failed to upload sorry.", error.message);
     }
   };
-
   const fetchingTimetable = async () => {
     if (department) {  
-        try {
-            const url = `http://localhost:5000/api/timetable/gettimetable/${department}`;
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error("No timetable available");
-            }
-            const data = await response.json();
-
-            if (data.length === 0) {
-                console.log("No timetable found for this department.");
-            } else {
-                console.log("Timetable Data:", data);
-                setTimetable(data);
-                console.log(timetable)
-            }
-        } catch (err) {
-            console.log("Error fetching timetable:", err.message);
-            setTimetable([])
+      try {
+        const url = `http://localhost:5000/api/timetable/gettimetable/${department}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("No timetable available");
         }
+        const data = await response.json();
+        console.log("Timetable Data:", data);
+  
+        if (!Array.isArray(data) || data.length === 0) {
+          console.log("No timetable is being there.");
+          setTimetable([]);
+        } else {
+          setTimetable([...data]); 
+          console.log(timetable)
+        }
+      } catch (err) {
+        console.log("Error fetching timetable:", err.message);
+        setTimetable([]);
+      }
     } else {
-        console.log("Please select a department first.");
+      console.log("Please select a department first.");
     }
-};
-
+  };
+  
+  // Check if timetable is updating
+  useEffect(() => {
+    console.log("Updated Timetable:", timetable);
+  }, [timetable]);
 
 
   useEffect(() => {
@@ -98,6 +102,17 @@ const AdminTimetable = () => {
       </select>
 
       {timetable.length === 0 && department && <p>No timetable available.</p>}
+
+      {timetable.length > 0 && (
+        <div>
+          {timetable.map((timu,index)=>(
+            <div key={index}>
+            <h2>{timu.title}</h2>
+            <a href={timu.file_url} rel="noopener norefferrer" target='_blank'>View Timetable</a>
+            </div>
+          ))}
+        </div>
+      )}
 
       {department.length > 0 && (
         <div>

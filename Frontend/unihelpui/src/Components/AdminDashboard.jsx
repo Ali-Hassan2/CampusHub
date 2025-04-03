@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const menus = [
     { name: 'Past Papers', path: '/AdminPastpapers' },
     { name: 'Time Table', path: '/AdminTimetable' },
-    { name: 'Bus Route', path: '/#' },
+    { name: 'Bus Route', path: '/AdminBus' },
     { name: 'Contact Info', path: '/#' },
     { name: 'Outlines', path: '/#' },
   ];

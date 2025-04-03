@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -8,10 +8,14 @@ const Timetable = () => {
   //   1,2,3,4,5,6,7,8
   // ]
 
+  let location = useLocation();
+  const department = location.state?.department || "Unknown Department"
+  const heading = location.state?.heading || "Unknown Section"
+
   const [timetable,settimetable] = useState([]);
 
   const gettingtimetable = async()=>{
-    const url = "http://localhost:5000/api/timetable/gettimetable";
+    const url = `http://localhost:5000/api/timetable/gettimetable/${department}`;
 
     try {
       const response = await fetch(url)
@@ -20,19 +24,32 @@ const Timetable = () => {
         throw new Error ("Failed to get response");
       }
 
-      const data = response.json();
-      settimetable(data.length > 0 ? data : [])
+      const data = await response.json();
+      console.log("The Data is: ",data);
 
-      
+      if(!Array.isArray(data)  || data.length === 0)
+      {
+        console.log("No timetable is available")
+        settimetable([])
+      }
+      else{
+        settimetable([...data]);
+        console.log(data)
+      }
     } catch (error) {
-      console.log("Sorry cannot fetch timetable",err)
+      console.log("Sorry cannot fetch timetable",error.message)
+      settimetable([]);
     }
   }
 
+  useEffect(()=>{
+    if(department){
+      gettingtimetable()
+    }
+  },[department])
 
-  let location = useLocation();
-  const department = location.state?.department || "Unknown Department"
-  const heading = location.state?.heading || "Unknown Section"
+
+
 
   // const [semester,setsemester] = useState(0)
 
@@ -53,9 +70,6 @@ const Timetable = () => {
       <div className="h-[95vh] w-[100vw] border-4 border-amber-600 flex justify-center items-center">
         <div className="h-[500px] w-[700px] border-4 border-black">
 
-
-
-
           {/* <select name="" id="" onChange={handlesemester}>
             <option value="">Select Semester</option>
             {semesters.map((sem,index)=>(
@@ -65,15 +79,16 @@ const Timetable = () => {
             ))}
           </select> */}
 
-          {/* <button className="bg-blue-600 h-[30px] cursor-pointer" >Search</button> */}
+          {/* <button className="bg-blue-600 h-[30px] cursor-pointer" >Search</button> */}\
 
+          {timetable.length === 0 && department && <p>No Timetable available here.</p>}
           {timetable.length > 0 && (
             <div>
               <h1>Time Table</h1>
-              {timetable.map((index,tim)=>(
+              {timetable.map((tim,index)=>(
                 <div key={index} >
-                  <h3>{tim.department}</h3>
-                  <a href={tim.file_url} rel="noopener noreferrer">View Timetable</a>
+                  <h3>{tim.title}</h3>
+                  <a href={tim.file_url} rel="noopener noreferrer" target='_blank'>View Timetable</a>
                 </div>
               ))}
             </div>

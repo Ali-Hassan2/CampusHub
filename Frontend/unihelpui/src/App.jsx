@@ -12,6 +12,7 @@ import AdminLogin from './Components/AdminLogin'
 import AdminDashboard from './Components/AdminDashboard'
 import AdminPastpaers from './Components/AdminPastpaers'
 import AdminTimetable from './Components/AdminTimetable'
+import AdminBus from './Components/AdminBus'
 
 const router = createBrowserRouter(
   [
@@ -60,6 +61,10 @@ const router = createBrowserRouter(
     {
       path:"/AdminTimetable",
       element:<AdminTimetable/>
+    },
+    {
+      path:'/AdminBus',
+      element:<AdminBus/>
     }
   ]
 )
