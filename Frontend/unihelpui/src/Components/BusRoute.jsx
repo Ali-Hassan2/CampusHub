@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react'
 import {useLocation} from 'react-router-dom'
-import { useState} from 'react';
+import { useState,React,useEffect} from 'react';
 
 const BusRoute = () => {
 
+  const location = useLocation();
+  // const queryParms = new URLSearchParams(location)
+  // const department = queryParms.get('department');
+  const department = location.state?.department || "Unkown Area"
+
   const [route,setroute] = useState([]);
+
   const fetchingbusroute = async()=>{
-
-
-
-    const location = useLocation();
-    // const queryParms = new URLSearchParams(location)
-    // const department = queryParms.get('department');
-    const department = location.state?.department || "Unkown Area"
-
-
-  
     const url = 'http://localhost:5000/api/busroute/getbusroute'
     try {
       const response = await fetch(url)
@@ -23,14 +18,14 @@ const BusRoute = () => {
         console.log('Sorry')
       }
       const data = await response.json();
-      if(!Array.isArray(data) && data.length === 0){
+      if(!Array.isArray(data) || data.length === 0){
         console.log("No data is available")
         setroute([]);
       }
       else{
         setroute([...data]);
         console.log("The response is,",data)
-        console.log("The route is:",route)
+        
       }
     } catch (error) {
       console.log("Sorry cannot make a get request.")
@@ -66,7 +61,7 @@ const BusRoute = () => {
   },[])
 
   return (
-    <div>
+    <div> 
       <h1>Welcome to {}</h1>
 
       <div className="h-[100vh] w-[100vw] border-4 border-red-600 flex justify-center items-center">
@@ -80,13 +75,13 @@ const BusRoute = () => {
 
           {route.length > 0 &&((
            <div>
-            {route.map((rot,index)=>{
+            {route.map((rot,index)=>(
               <div key={index}>
                 <h2>{rot.title}</h2>
                 <a href={rot.file_url} rel="noopenerrer norefferrer" target='_blank'>View Bus Route</a>
                 <button onClick={()=>download(rot.file_url)}>Download</button>
               </div>
-            })}
+            ))}
            </div>
           ))}
         </div>
