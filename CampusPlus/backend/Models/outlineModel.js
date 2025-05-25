@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const outlineschema =  mongoose.model('outllineschema', new mongoose.Schema({
-    department:{
+    department:{ 
         type:String,
         required:true,
     },

@@ -15,9 +15,15 @@ const Adminfac = () => {
         setdep(selectedep);
     }
 
+
+
+
+
+
+
     const searchcontact = async()=>{
 
-        const url = `http://localhost:8000/api/contact/getcontce`;
+        const url = `http://localhost:5000/api/contact/getcontact/${dep}`;
         try {
             
             const response = await fetch(url);
@@ -54,7 +60,7 @@ const Adminfac = () => {
         formdata.append('phone',phone);
 
 
-        const url = `http://localhost:8000/api/contact/addcontact/${mail}/${phone}`;
+        const url = `http://localhost:5000/api/contact/addcontact/${mail}/${phone}`;
 
         try{
             const response = await fetch(url,{
@@ -63,7 +69,8 @@ const Adminfac = () => {
             })
         }
         catch(error){
-
+            console.log("There is an error.",error)
+            setcontact([]);
         }
     }
 
@@ -71,8 +78,6 @@ const Adminfac = () => {
 
     return (
         <div>
-
-
 
             <select name="" id="" onChange={handledep}>
                 <option value="">
@@ -90,12 +95,8 @@ const Adminfac = () => {
                 
             </select>
 
-
             {dep && (
                 <>
-
-
-
 
                 <button onClick={addcontact} >
                     Add Contact
@@ -123,18 +124,6 @@ const Adminfac = () => {
                 </div>
 
             )}
-
-
-
-
-
-
-
-
-
-
-
-
 
         </div>
     )

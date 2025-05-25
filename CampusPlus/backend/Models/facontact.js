@@ -14,3 +14,5 @@ const facontact = mongoose.model('facontact', new mongoose.Schema({
         required:true,
     }
 }))
+
+module.exports = facontact

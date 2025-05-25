@@ -10,11 +10,10 @@ const facontact = () => {
     
     const department = location.state?.department || "Unknown Department"
     const heading = location.state?.heading || "Unknown Section"
-
     const [contact, setcontact] = useState([]);
-
     const getingcontact = async(req,res)=>{
-      const url = `http://localhost:8000/api/contact/${department}`
+      console.log("The department is: ",dep)
+      const url = `http://localhost:5000/api/contact/getcontact/${department}`
 
       try {
         const response = await fetch(url);
@@ -63,6 +62,7 @@ const facontact = () => {
                 <h4>Name: {ct.name}</h4>
                 <h4>Mail: {ct.mail}</h4>
                 <h4>Phone: {ct.phone}</h4>
+                
                </div>
               ))}
             </div>

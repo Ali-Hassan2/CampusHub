@@ -13,6 +13,7 @@
     "@fontsource/mulish": "^5.2.5",
     "@tailwindcss/vite": "^4.0.16",
     "cors": "^2.8.5",
+    "framer-motion": "^12.12.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0"

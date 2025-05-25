@@ -1,103 +1,111 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import Navbar from '../Components/Navbar'
+import { ThemeContext } from '../Context/ThemeContext'
 
 const Timetable = () => {
+  const { theme } = useContext(ThemeContext);
+  const location = useLocation();
+  const department = location.state?.department || "Unknown Department";
+  const heading = location.state?.heading || "Unknown Section";
 
-  // const semesters = [
-  //   1,2,3,4,5,6,7,8
-  // ]
+  const [timetable, settimetable] = useState([]);
 
-  let location = useLocation();
-  const department = location.state?.department || "Unknown Department"
-  const heading = location.state?.heading || "Unknown Section"
-
-  const [timetable,settimetable] = useState([]);
-
-  const gettingtimetable = async()=>{
+  const gettingtimetable = async () => {
     const url = `http://localhost:5000/api/timetable/gettimetable/${department}`;
-
     try {
-      const response = await fetch(url)
-      if(!response.ok)
-      {
-        throw new Error ("Failed to get response");
-      }
-
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Failed to get response");
       const data = await response.json();
-      console.log("The Data is: ",data);
-
-      if(!Array.isArray(data)  || data.length === 0)
-      {
-        console.log("No timetable is available")
-        settimetable([])
-      }
-      else{
+      if (!Array.isArray(data) || data.length === 0) {
+        settimetable([]);
+      } else {
         settimetable([...data]);
-        console.log(data)
       }
     } catch (error) {
-      console.log("Sorry cannot fetch timetable",error.message)
+      console.log("Sorry cannot fetch timetable", error.message);
       settimetable([]);
     }
-  }
+  };
 
-  useEffect(()=>{
-    if(department){
-      gettingtimetable()
+  useEffect(() => {
+    if (department) {
+      gettingtimetable();
     }
-  },[department])
+  }, [department]);
 
-
-
-
-  // const [semester,setsemester] = useState(0)
-
-  const handlesemester = async(e)=>{
-
-    setsemester(e.target.value)
-  }
-
-  const searchHandling = async(e)=>{
-    e.PreventDefault()
-
-
-  }
-  
   return (
-    <div>
-      <h2>Welcome to / {department} / {heading}</h2>
-      <div className="h-[95vh] w-[100vw] border-4 border-amber-600 flex justify-center items-center">
-        <div className="h-[500px] w-[700px] border-4 border-black">
+    <>
+      <Navbar />
 
-          {/* <select name="" id="" onChange={handlesemester}>
-            <option value="">Select Semester</option>
-            {semesters.map((sem,index)=>(
-              <option key={index} value={sem}>
-                {sem}
-              </option>
-            ))}
-          </select> */}
+      <div>
+        <div className="h-[90vh] w-[100vw] flex justify-around items-center flex-col ">
+          <h1
+            className="text-center w-full text-6xl font-extrabold relative top-[30px]"
+          >
+            Welcome to <br />
+            <span className='bg-gradient-to-r from-[#9382e0] to-[#5d4d8a] bg-clip-text text-transparent font-Saira'>{department}</span> 
+            <span className="bg-gradient-to-r from-[#9382e0] to-[#5d4d8a] bg-clip-text text-transparent font-Saira">/</span> 
+            <span className="bg-gradient-to-r from-[#9382e0] to-[#5d4d8a] bg-clip-text text-transparent font-Saira">{heading}</span>
+          </h1>
 
-          {/* <button className="bg-blue-600 h-[30px] cursor-pointer" >Search</button> */}\
+          <div
+  className={`animated-border relative h-[500px] w-[1700px] flex justify-center items-center shadow-md shadow-black/30 rounded-[30px] transition-transform duration-300 ease-in-out overflow-hidden group ${
+    theme === 'dark' ? 'bg-black' : 'bg-[#E3E3F3]'
+  }`}
+  onMouseMove={(e) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
 
-          {timetable.length === 0 && department && <p>No Timetable available here.</p>}
-          {timetable.length > 0 && (
-            <div>
-              <h1>Time Table</h1>
-              {timetable.map((tim,index)=>(
-                <div key={index} >
-                  <h3>{tim.title}</h3>
-                  <a href={tim.file_url} rel="noopener noreferrer" target='_blank'>View Timetable</a>
-                </div>
-              ))}
-            </div>
-          )}
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+
+    const deltaX = (x - width / 2) / (width / 2);
+    const deltaY = (y - height / 2) / (height / 2);
+
+    const maxRotate = 4;
+
+    const rotateY = deltaX * maxRotate;
+    const rotateX = -deltaY * maxRotate;
+
+    let translateZ = 0;
+    if (deltaX > 0) translateZ -= 3 * deltaX;
+    if (deltaY > 0) translateZ += 3 * deltaY;
+    if (deltaY < 0) translateZ -= 3 * Math.abs(deltaY);
+
+    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+  }}
+>
+
+  {timetable.length === 0 && department && (
+    <p className="text-3xl">No Timetable available here.</p>
+  )}
+  {timetable.length > 0 && (
+    <div className="space-y-8 text-center relative z-10">
+      <h1 className="text-2xl font-bold">Time Table</h1>
+      {timetable.map((tim, index) => (
+        <div key={index} className="px-6 py-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{tim.title}</h3>
+          <a
+            href={tim.file_url}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="text-blue-600 dark:text-blue-300 underline"
+          >
+            View Timetable
+          </a>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
 
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
-export default Timetable
+export default Timetable;

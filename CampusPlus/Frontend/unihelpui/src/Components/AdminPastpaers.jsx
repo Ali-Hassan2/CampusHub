@@ -96,12 +96,6 @@ const AdminPastpapers = () => {
     }
   };
 
-
-
-
-
-
-
   const handleRemove= async (paperId)=>{
     try {
       const response = await fetch(`http://localhost:5000/api/pastpapers/delete/${paperId}`,{
@@ -115,7 +109,7 @@ const AdminPastpapers = () => {
       alert("Paper removed Successfully")
 
     } catch (error) {
-      console.log("Sorry we have an error",error.message)
+      console.lg("Sorry we have an error",error.message)
     }
   } 
 

@@ -11,7 +11,7 @@ const AdminDashboard = () => {
     { name: 'Past Papers', path: '/AdminPastpapers' },
     { name: 'Time Table', path: '/AdminTimetable' },
     { name: 'Bus Route', path: '/AdminBus' },
-    { name: 'Contact Info', path: '/Adminfac' },
+    { name: 'Contact Info', path: '/Adminfac'  },
     { name: 'Outlines', path: '/AdminOutline' },
   ];
 

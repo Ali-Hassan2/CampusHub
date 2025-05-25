@@ -4,8 +4,6 @@ import { useState,React,useEffect} from 'react';
 const BusRoute = () => {
 
   const location = useLocation();
-  // const queryParms = new URLSearchParams(location)
-  // const department = queryParms.get('department');
   const department = location.state?.department || "Unkown Area"
 
   const [route,setroute] = useState([]);
@@ -32,7 +30,6 @@ const BusRoute = () => {
       setroute([]);
     }
   }
-
   const download = async (url,filename) =>{
     try{
     const response = await fetch(url)
@@ -54,12 +51,9 @@ const BusRoute = () => {
     alert("Cannot download file.")
   }
 }
-
-
   useEffect(()=>{
     fetchingbusroute();
   },[])
-
   return (
     <div> 
       <h1>Welcome to {department}</h1>
@@ -72,7 +66,6 @@ const BusRoute = () => {
               <p>Sorry no route is available</p>
             </div>
           )}
-
           {route.length > 0 &&((
            <div>
             {route.map((rot,index)=>(

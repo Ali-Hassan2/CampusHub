@@ -38,7 +38,6 @@ app.use('/api/timetable',timetableroute)
 app.use('/api/busroute',buspathroute)
 app.use('/api/outline',outlineroute)
 app.use('/api/contact',facontactroute);
-
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 

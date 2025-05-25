@@ -6,7 +6,9 @@ const router = express.Router();
 const facontact = require('../Models/facontact')
 
 
-router.get('/getcontact',async(req,res)=>{
+router.get('/getcontact/:department',async(req,res)=>{
+
+    const {department} = req.params;
     if(!req.department){
         res.status(404).json({
             success:false,
@@ -15,8 +17,6 @@ router.get('/getcontact',async(req,res)=>{
     }
 
     try {
-        const {department} = req.params;
-
         const newuse = await facontact.find({department});
         res.status(200).json(newuse);
     } catch (error) {

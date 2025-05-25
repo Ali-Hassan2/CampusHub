@@ -1,5 +1,6 @@
 import {React,useState} from 'react'
 import {useLocation} from 'react-router-dom'
+import Navbar from '../Components/Navbar'
 const Outline = () => {
 
 
@@ -43,8 +44,11 @@ const Outline = () => {
 
 
   return (
-    <div>
-      <h2>Welcome to /{ department} / {heading}</h2>
+    <>
+    <Navbar/>
+    <div className='border-8 border-red-700 w-full h-[88vh] flex flex-col justify-around items-center'>
+    <h1 className=" relative text-center w-full -top-[100px] text-6xl font-extrabold"
+      >Welcome to <br /><span className='bg-gradient-to-r from-[#9382e0] to-[#5d4d8a] bg-clip-text text-transparent font-Saira'>{department}</span> <span className="bg-gradient-to-r from-[#9382e0] to-[#5d4d8a] bg-clip-text text-transparent font-Saira">/</span> <span className="bg-gradient-to-r from-[#9382e0] to-[#5d4d8a] bg-clip-text text-transparent font-Saira">{heading}</span></h1>
 
       <select name="" id="">
         <option value="">Select Semester</option>
@@ -68,10 +72,8 @@ const Outline = () => {
 
 
 
-
-
-
     </div>
+</>
   )
 }
 

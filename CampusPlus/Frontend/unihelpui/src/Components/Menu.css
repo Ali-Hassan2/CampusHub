@@ -1,0 +1,17 @@
+.radial-light {
+    background: radial-gradient(
+      circle at var(--x) var(--y),
+      rgba(151, 89, 208, 0.297),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .card:hover > .radial-light {
+    opacity: 1;
+  }
+  .card:focus > .radial-light {
+    opacity: 1;
+    outline: none;
+  }

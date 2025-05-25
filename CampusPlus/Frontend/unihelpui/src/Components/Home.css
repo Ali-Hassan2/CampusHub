@@ -1,3 +1,99 @@
 .footer{
     margin-top: 200px;
 }
+.outer {
+    width: 1000px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50px;
+
+  }
+
+  .inner {
+    display: flex;
+    gap: 50px;
+    white-space: nowrap;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: scrollLeft 12s linear infinite;
+  }
+
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0) translateY(-50%);
+    }
+    100% {
+      transform: translateX(-40%) translateY(-50%);
+    }
+  }
+
+  .outer {
+    position: relative;
+    width: 1000px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50px;
+  }
+  
+  .inner {
+    display: flex;
+    gap: 50px;
+    white-space: nowrap;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: scrollLeft 12s linear infinite;
+  }
+  
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0) translateY(-50%);
+    }
+    100% {
+      transform: translateX(-40%) translateY(-50%);
+    }
+  }
+  
+  /* === Reusable Blur Edge Effect === */
+  .outer::before,
+  .outer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+  
+  .outer::after {
+    right: 0;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+  
+  .outer::before {
+    left: 0;
+  }
+  
+  .light-gradient::before {
+    background: linear-gradient(to right, white, transparent);
+  }
+  .light-gradient::after {
+    background: linear-gradient(to left, white, transparent);
+  }
+  .dark-gradient::before {
+    background: linear-gradient(to right, #000000, transparent);
+  }
+  .dark-gradient::after {
+    background: linear-gradient(to left, #000000, transparent);
+  }
+  
