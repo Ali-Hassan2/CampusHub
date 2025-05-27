@@ -7,7 +7,7 @@ import Pastpapers from './Components/Pastpapers'
 import Timetable from './Components/Timetable'
 import Outline from './Components/Outline'
 import BusRoute from './Components/BusRoute'
-import ContactF from './Components/facontact'
+import Facontact from './Components/Facontact'
 import AdminLogin from './Components/AdminLogin'
 import AdminDashboard from './Components/AdminDashboard'
 import AdminPastpaers from './Components/AdminPastpaers'
@@ -24,8 +24,8 @@ const router = createBrowserRouter([
   { path: '/pastpapers', element: <Pastpapers /> },
   { path: '/timetable', element: <Timetable /> },
   { path: '/outline', element: <Outline /> },
-  { path: '/contact', element: <ContactF /> },
   { path: '/busroute', element: <BusRoute /> },
+  {path:'/faculty',element:<Facontact/>},
   { path: '/admin', element: <AdminLogin /> },
   { path: '/AdminDashboard', element: <AdminDashboard /> },
   { path: '/AdminPastpapers', element: <AdminPastpaers /> },
@@ -46,7 +46,7 @@ function App() {
         ${theme === 'light' ? 'bg-white' : 'bg-black'} 
         ${theme === 'light'
           ? 'bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'
-          : 'bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,255,255,0.1),rgba(0,0,0,0))]'}
+          : 'bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]'}
         transition-colors duration-500
       `}
     >

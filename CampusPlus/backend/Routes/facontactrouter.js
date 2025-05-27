@@ -9,7 +9,8 @@ const facontact = require('../Models/facontact')
 router.get('/getcontact/:department',async(req,res)=>{
 
     const {department} = req.params;
-    if(!req.department){
+    console.log("The dep is: ",department)
+    if(!department){
         res.status(404).json({
             success:false,
             message:"There is nothing in this call",
@@ -32,12 +33,13 @@ router.get('/getcontact/:department',async(req,res)=>{
 router.post('/addcontact/:mail/:phone',async(req,res)=>{
 
     try{
-        const {department,mail,phone} = req.body;
+        const {department,email,phone} = req.body;
+        console.log({department,email,phone})
 
         const newuser = new facontact({
-            department:department,
-            mail:mail,
-            phone:phone
+            department:department.trim(),
+            email:email.trim(),
+            phone:phone.trim()
         })
 
         await newuser.save();
@@ -51,7 +53,7 @@ router.post('/addcontact/:mail/:phone',async(req,res)=>{
             success:false,
             msg:"There is an error while",
         })
-        console.log("There is an error while saving the data",error)
+        console.log("There is an error while saving the data",err)
     }
 
 

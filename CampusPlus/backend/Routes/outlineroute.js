@@ -22,11 +22,13 @@ router.get('/getoutline/:department/:semester/:subject',async(req,res)=>{
 
         const {department,semester,subject} = req.params;
 
-        console.log("The dep is ",department)
-        console.log("The semester is ",semester)
-        console.log("The subject is ",subject)
+        console.log({department,semester,subject})
 
-        const outlines = await outlineModel.find({department,semester,subject})
+        const outlines = await outlineModel.find({
+            department:department.trim(),
+            semester:semester.trim(),
+            subject:subject.trim()
+        })
         res.status(200).json(outlines)
         
     } catch (error) {

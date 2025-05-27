@@ -39,7 +39,14 @@ router.get('/subjects/:semester/:department', async (req, res) => {
 router.get('/papers/:semester/:department/:subject/:type', async (req, res) => {
     try {
         const { semester, department, subject, type } = req.params;
-        const papers = await pastpaperModel.find({ semester, department, subject, type });
+        console.log({ semester, department, subject, type });
+        const papers = await pastpaperModel.find({
+            semester: semester,
+            department: department.trim(),
+            subject: subject.trim(),
+            type: type.trim()
+        });
+        console.log("Found papers:", papers.length);
         res.status(200).json(papers);
     } catch (err) {
         res.status(500).json({ success: false, msg: "Sorry, cannot fetch past papers." });

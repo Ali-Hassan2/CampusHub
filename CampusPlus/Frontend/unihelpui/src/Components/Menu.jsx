@@ -16,7 +16,7 @@ const Menu = () => {
   const items = [
     { name: 'Past papers', path: '/Pastpapers', des: 'Go There' },
     { name: 'Timetable', path: '/Timetable', des: 'Go There' },
-    { name: 'Contact Info', path: '/ContactF', des: 'Go There' },
+    { name: 'Contact Info', path: '/faculty', des: 'Go There' },
     { name: 'Outline', path: '/Outline', des: 'Go There' },
     { name: 'BusRoute', path: '/BusRoute', des: 'Go There' }
   ];
