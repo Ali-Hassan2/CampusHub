@@ -76,7 +76,7 @@ const Timetable = () => {
         </h1>
 
         <div
-           className={`card relative h-[500px] w-[1700px] flex justify-center items-center
+           className={`card relative h-[500px] w-[1700px] flex justify-center items-start
             shadow-md shadow-black/30 rounded-[30px] 
             transition-transform duration-300 ease-in-out overflow-hidden group
             ${
@@ -94,29 +94,43 @@ const Timetable = () => {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          <span className="radial absolute inset-0 pointer-events-none rounded-[30px] z-0"/>
+          <span className="radial absolute inset-0 pointer-events-none rounded-[30px] z-0 "/>
 
           {timetable.length === 0 && department && (
             <p className="text-3xl z-10">No Timetable available here.</p>
           )}
-          {timetable.length > 0 && (
-            <div className="space-y-8 text-center relative z-10">
-              <h1 className="text-2xl font-bold">Time Table</h1>
-              {timetable.map((tim, index) => (
-                <div key={index} className="px-6 py-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{tim.title}</h3>
-                  <a
-                    href={tim.file_url}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    className="text-blue-600 dark:text-blue-300 underline"
-                  >
-                    View Timetable
-                  </a>
-                </div>
-              ))}
-            </div>
-          )}
+        {timetable.length > 0 && (
+  <div className={`w-[80vw] relative  top-[50px] bg-[#111] flex justify-center flex-col items-start gap-[20px] rounded-[30px] ${
+    theme === 'light' ? "bg-[#E3E3F3]" : "bg-[#111111]"
+  }`}>
+    <h2 className="w-full  h-[70px] items-center flex justify-center text-3xl font-Saira bg-gradient-to-r from-[#9783EE] to-[#725DAC] text-white rounded-t-[30px]">Time Table</h2>
+    {timetable.map((tim, index) => (
+      <div
+        key={index}
+        className={`flex justify-between w-[70vw] mt-[10px] mb-[10px] py-4 px-6 rounded-xl shadow-md shadow-black/30 h-[70px] items-center relative bottom-0  ${
+          theme === 'light' ? 'bg-[#E3E3F3] text-black' : 'bg-[#111] text-white'
+        }`}
+      >
+        <h3 className="relative left-6 text-[19px] fle ">{tim.title}</h3>
+        <a
+          href={tim.file_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white relative bg-gradient-to-r from-[#9783EE] to-[#725DAC] left-[420px] w-[130px] h-[40px] rounded-[50px] text-center flex items-center justify-center font-semibold shadow-sm shadow-black/30 "
+        >
+          View Timetable
+        </a>
+
+        <button
+          className="text-white relative bg-gradient-to-r from-[#9783EE] to-[#725DAC] w-[200px] h-[40px] rounded-[50px] text-center flex items-center justify-center font-semibold right-2 shadow-sm shadow-black/30 cursor-pointer left-[100px]"
+          onClick={() => downloadfile(tim.file_url, `${tim.title}.pdf`)}
+        >
+          Download PDF
+        </button>
+      </div>
+    ))}
+  </div>
+)}
         </div>
       </div>
     </>
